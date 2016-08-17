@@ -6,17 +6,17 @@ function main() {
 
     foreach($dex['array'] as $mon) {
         if(!isset($mon['Next evolution(s)'])) {
-            $name = $mon['Name'];
+            $name = strtolower($mon['Name']);
             $types = shortenTypes($mon['Types']);
             $fa = getAttTypes($mon['Fast Attack(s)']);
             $ca = getAttTypes($mon['Special Attack(s)']);
 
-            $mdex[] = "$name ($types)$fa|$ca";
+            $mdex[] = "$name ($types)$fa|$ca\n";
         }
     }
 
     sort($mdex, SORT_STRING);
-    foreach($mdex as $entry) echo $entry."\n";
+    file_put_contents('microdex.txt', implode($mdex));
 }
 
 function getAttTypes($attacks) {
